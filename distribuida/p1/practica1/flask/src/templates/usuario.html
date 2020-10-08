@@ -1,0 +1,56 @@
+{% extends "base_template.html" %}
+{% block title %}Bienvenido {{ username }}{% endblock %}
+{% block content %}
+<div class="user-info">
+<div class="">
+  <h1>{{ user.username }}</h1>
+</div>
+<div class="">
+  <p>Estado: {{ user.estado }}</p>
+</div>
+<div class="">
+  <p>Género: {{ user.sexo }}</p>
+</div>
+<div class="">
+  <p>Edad: {{ user.edad }}</p>
+</div>
+</div>
+<div class="bitacora">
+  <!--
+  <ul>
+    {% for post in posts %}
+        <li>{{ post.title }}</li>
+    {% endfor %}
+  </ul>-->
+  <table>
+    <tr>
+      <th>Distancia</th>
+      <th>Tiempo</th>
+      <th>Tipo de carrera</th>
+      <th>Fecha</th>
+    </tr>
+    {% for element in bitacora %}
+      <tr>
+       <td>{{ element.distance }}</td>
+       <td>{{ element.time }}</td>
+       <td>{{ element.type }}</td>
+       <td>{{ element.date }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="newbitacora">
+  <h4>Registrar nueva actividad</h4>
+  <form action="" method="post">
+      <label for="distancia">Distancia (en Kms): </label>
+      <input type="text" id="distancia" name="distancia" /><br>
+      <label for="time">Tiempo (en horas): </label>
+      <input type="text" id="time" name="time" /><br>
+      <label for="estado">Tipo: </label>
+      <input type="text" id="estado" name="estado" /><br>
+      <label for="date">Fecha (aaaa-mm-dd): </label>
+      <input type="text" id="date" name="date" /><br>
+      <input type="submit" id="send-signup" name="signup" value="Registrar" />
+  </form>
+</div>
+{% endblock %}
