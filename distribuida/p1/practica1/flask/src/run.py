@@ -21,7 +21,8 @@ def login():
         userdb = mongo.find_user(username)
         if userdb:
             if password == userdb['password']:
-                return render_template("usuario.html", user=userdb, bitacora=bitacora)
+                userdb['_id'] = str(userdb['_id'])
+                return render_template("usuario.html", user=userdb, bitacora=userdb['bitacora'])
         return render_template("error401.html")
     return render_template("login.html", username='', user_id=0)
 
@@ -29,7 +30,7 @@ def login():
 def registro():
     if request.method == 'POST':
         usuario = {
-            'username': request.form['fullname'],
+            'fullname': request.form['fullname'],
             'username': request.form['username'],
             'password': request.form['password'],
             'estado': request.form['estado'],
@@ -42,6 +43,17 @@ def registro():
         #return request
     return render_template("registro.html")
 
+@app.route("/actividad", methods=["POST"])
+def actividad():
+    user_id = request.form['userId']
+    activity = {
+        'distance': request.form['distancia'],
+        'time': request.form['time'],
+        'type': request.form['estado'],
+        'date': request.form['date'],
+    }
+    userdb = mongo.insert_activity(activity, user_id)
+    return render_template("usuario.html", user=userdb, bitacora=userdb['bitacora'])
 
 if __name__ == '__main__':
     app.run()
