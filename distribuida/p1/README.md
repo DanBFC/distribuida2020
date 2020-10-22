@@ -1,11 +1,3 @@
-# Servicio (Nginx con Python 3)
-
-Este archivo contiene la información necesaria para construir las imagenes de docker e iniciar los contenedores
-
-## Contenido de las imagenes
-
-Se tienen imagenes de nginx como servidor http y flask como framekwork para utilizar python para trabajar con páginas web
-
 ## Instrucciones para construir la imagen y correr el contenedor
 
 Previamente se requiere tener instalado `Docker CE`.
