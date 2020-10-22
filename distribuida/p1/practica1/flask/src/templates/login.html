@@ -11,9 +11,9 @@
     <!-- Login Form -->
     <form action="/login" method="post">
         <label for="name">Usuario: </label>
-        <input type="text" id="name" name="name" /><br>
+        <input type="text" id="name" name="name" required/><br>
         <label for="password">Contraseña: </label>
-        <input type="password" id="password" name="password" /><br>
+        <input type="password" id="password" name="password" required/><br>
         <input type="submit" id="send-signin" name="signin" value="Iniciar Sesion" />
     </form><br>
     No tengo una cuenta: <a href="/registro">Registrar</a>

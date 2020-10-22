@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from MongoDBController import MongoDB
 
 mongo = MongoDB()
@@ -11,11 +11,9 @@ import jwt as encorder
 import datetime
 from datetime import timedelta
 
-bitacora = [{'distance': '16 kms', 'time': '1 hrs', 'type': 'Fondo', 'date': '2020-01-01'}, {'distance': '16 kms', 'time': '1 hrs', 'type': 'Fondo', 'date': '2020-01-01'}]
-
 @app.route("/", methods=["GET"])
 def root():
-    return render_template("login.html")
+    return redirect(url_for('login'))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -44,7 +42,6 @@ def registro():
         usuario = mongo.insert_user(usuario)
         usuario['_id'] = str(usuario['_id'])
         return render_template("usuario.html", user=usuario, bitacora=usuario['bitacora'])
-        #return request
     return render_template("registro.html")
 
 @app.route("/actividad", methods=["POST"])

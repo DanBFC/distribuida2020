@@ -22,13 +22,7 @@ class MongoDB:
 
     def insert_activity(self, activity, user_id):
         client = pym.MongoClient(self.uri)
-        print('*******************')
-        print(user_id)
-        print(activity)
-        print('*******************')
         user = client.p1.Usuarios.find_one({"_id": ObjectId(user_id)})
-        #if userdb:
-        #    return null
         user['bitacora'].append(activity)
         client.p1.Usuarios.update_one({"_id": ObjectId(user_id)}, {"$set": {"bitacora" : user['bitacora']}})
         return user
