@@ -33,3 +33,9 @@ Existe ya un usuario por default, para poder ingresar con este usuario los datos
 - `password: password`
 
 En caso que no se quiera acceder con el usuario default dar click en Registrar y llenar el formulario
+
+## Integrantes:
+
+- Enrique Francisco Soto Astorga No. Cuenta: 409009624
+
+- Daniel Beltrán Hernández No. Cuenta: 310030067
