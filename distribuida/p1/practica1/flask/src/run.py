@@ -13,6 +13,10 @@ from datetime import timedelta
 
 bitacora = [{'distance': '16 kms', 'time': '1 hrs', 'type': 'Fondo', 'date': '2020-01-01'}, {'distance': '16 kms', 'time': '1 hrs', 'type': 'Fondo', 'date': '2020-01-01'}]
 
+@app.route("/", methods=["GET"])
+def root():
+    return render_template("login.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
@@ -24,7 +28,7 @@ def login():
                 userdb['_id'] = str(userdb['_id'])
                 return render_template("usuario.html", user=userdb, bitacora=userdb['bitacora'])
         return render_template("error401.html")
-    return render_template("login.html", username='', user_id=0)
+    return render_template("login.html")
 
 @app.route("/registro", methods=["GET", "POST"])
 def registro():
@@ -38,8 +42,8 @@ def registro():
             'edad': request.form['edad']
         }
         usuario = mongo.insert_user(usuario)
-        #print(usuario)
-        return render_template("index.html", username=usuario['username'], user_id=usuario['_id'])
+        usuario['_id'] = str(usuario['_id'])
+        return render_template("usuario.html", user=usuario, bitacora=usuario['bitacora'])
         #return request
     return render_template("registro.html")
 
@@ -49,7 +53,7 @@ def actividad():
     activity = {
         'distance': request.form['distancia'],
         'time': request.form['time'],
-        'type': request.form['estado'],
+        'type': request.form['tipo'],
         'date': request.form['date'],
     }
     userdb = mongo.insert_activity(activity, user_id)

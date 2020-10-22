@@ -1,57 +1,67 @@
 {% extends "base_template.html" %}
 {% block title %}Bienvenido {{ username }}{% endblock %}
 {% block content %}
-<div class="user-info">
-<div class="">
-  <h1>{{ user.fullname }}</h1>
+<div class="logout">
+  <a href="/login">Salir</a>
 </div>
-<div class="">
-  <p>Estado: {{ user.estado }}</p>
-</div>
-<div class="">
-  <p>Género: {{ user.sexo }}</p>
-</div>
-<div class="">
-  <p>Edad: {{ user.edad }}</p>
-</div>
-</div>
-<div class="bitacora">
-  <!--
-  <ul>
-    {% for post in posts %}
-        <li>{{ post.title }}</li>
-    {% endfor %}
-  </ul>-->
-  <table>
-    <tr>
-      <th>Distancia</th>
-      <th>Tiempo</th>
-      <th>Tipo de carrera</th>
-      <th>Fecha</th>
-    </tr>
-    {% for element in bitacora %}
+<div class="wrapper">
+  <div class="user-info">
+  <div class="">
+    <h1>{{ user.fullname }}</h1>
+  </div>
+  <div class="">
+    <p>Estado: {{ user.estado }}</p>
+  </div>
+  <div class="">
+    <p>Género: {{ user.sexo }}</p>
+  </div>
+  <div class="">
+    <p>Edad: {{ user.edad }}</p>
+  </div>
+  </div>
+  <div class="bitacora">
+    <table class="table">
+      <thead class="thead-dark">
       <tr>
-       <td>{{ element.distance }}</td>
-       <td>{{ element.time }}</td>
-       <td>{{ element.type }}</td>
-       <td>{{ element.date }}</td>
+        <th>Distancia</th>
+        <th>Tiempo</th>
+        <th>Tipo de carrera</th>
+        <th>Fecha</th>
       </tr>
-    {% endfor %}
-  </table>
-</div>
-<div class="newbitacora">
-  <h4>Registrar nueva actividad</h4>
-  <form action="/actividad" method="post">
-      <input type="hidden" id="userId" name="userId" value= {{ user._id }} />
-      <label for="distancia">Distancia (en Kms): </label>
-      <input type="text" id="distancia" name="distancia" /><br>
-      <label for="time">Tiempo (en horas): </label>
-      <input type="text" id="time" name="time" /><br>
-      <label for="estado">Tipo: </label>
-      <input type="text" id="estado" name="estado" /><br>
-      <label for="date">Fecha (aaaa-mm-dd): </label>
-      <input type="text" id="date" name="date" /><br>
-      <input type="submit" id="send-signup" name="signup" value="Registrar" />
-  </form>
+      </thead>
+      <tbody>
+      {% for element in bitacora %}
+        <tr>
+         <td>{{ element.distance }}</td>
+         <td>{{ element.time }}</td>
+         <td>{{ element.type }}</td>
+         <td>{{ element.date }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="formActivity">
+    <!-- Login Form -->
+    <h4>Registrar nueva actividad</h4>
+    <form action="/actividad" method="post">
+        <input type="hidden" id="userId" name="userId" value= {{ user._id }} />
+        <label for="distancia">Distancia (en Kms): </label>
+        <input type="number" id="distancia" name="distancia" min="0"/><br>
+        <label for="time">Tiempo (en minutos): </label>
+        <input type="number" id="time" name="time" min="0" /><br>
+        <label for="tipo">Tipo: </label>
+        <input list="tipos" name="tipo" id="tipo">
+        <datalist id="tipos">
+          <option value="Caminata">
+          <option value="Sprint">
+          <option value="Medio-Fondo">
+          <option value="Fondo">
+        </datalist><br>
+        <label for="date">Fecha (aaaa-mm-dd): </label>
+        <input type="date" id="date" name="date" /><br>
+        <input type="submit" id="send-signup" name="signup" value="Registrar" />
+    </form>
+  </div>
 </div>
 {% endblock %}
